@@ -31,6 +31,15 @@ fn main() {
         Virgina,
     }
 
+    impl UsState {
+        fn existed_in(&self, year: u16) -> bool {
+            match self{
+                UsState::NorthCarolina => year >= 1819,
+                UsState::Virgina => year >= 1920,
+            }
+        }
+    }
+
     enum Coin {
         Penny,
         Nickel,
@@ -63,4 +72,37 @@ fn main() {
     let five = Some(5);
     let six = plus_one(five);
     let none = plus_one(None);
+
+    let config_max = Some(3u8);
+    match config_max {
+        Some(max) => println!("max is {}", max),
+        _ => (),
+    }
+
+    if let Some(max) = config_max {
+        println!("max is {}", max);
+    }
+
+    let mut count = 0;
+    let coin = Coin::Penny;
+    if let Coin::Quarter(state) = coin {
+        println!("State quarter from {state:?}!");
+    } else {
+        count += 1;
+    }
+
+    fn describe_state_quarter(coin: Coin) -> Option<String> {
+        let state = if let Coin::Quarter(state) = coin {
+            state
+        } else {
+            return None;
+        };
+        if state.existed_in(1900) {
+            Some(format!("{state:?} is pretty old"))
+        } else {
+            Some(format!("{state:?} does not exist"))
+        }
+    }
+
+
 }
