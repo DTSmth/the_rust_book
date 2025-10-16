@@ -4,7 +4,30 @@ use std::io::ErrorKind;
 use std::io::{self, Read};
 use std::net::IpAddr;
 
+fn largest(list: &[i32]) -> &i32 {
+    let mut largest = &list[0];
+
+    for item in list{
+        if item > largest {
+            largest = item;
+        }
+    }
+
+    largest
+}
+
 fn main() {
+    let number_list = vec![1, 2];
+
+    let result = largest(&number_list);
+    println!("The largest number is {}", result);
+
+    let number_list = vec![3, 3];
+
+    let result = largest(&number_list);
+    println!("The largest number is {}", result);
+
+
     let greeting_file = File::open("hello.txt").unwrap_or_else(|error| {
         if error.kind() == ErrorKind::NotFound {
             File::create("hello.txt").unwrap_or_else(|error| {
@@ -67,4 +90,18 @@ fn main() {
             self.value
         }
     }
+
+    let number_list = vec![34, 50, 25, 100, 65];
+
+    let mut largest = &number_list[0];
+
+    for number in &number_list {
+        if number > largest {
+            largest = number;
+        }
+    }
+
+    println!("The largest number is {}", largest);
+
+
 }
